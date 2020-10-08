@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         Log.d(TAG, "onCreate called")
 
-        downloadData.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=25/xml")
+        downloadData.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=200/xml")
         Log.d(TAG, "onCreate: done")
     }
 
@@ -68,8 +68,8 @@ class MainActivity : AppCompatActivity() {
                 //Log.d(TAG, "onPostExecute: parameter is $result")
                 val parseApplication = ParseApplication()
                 parseApplication.parse(result)
-                val arrayAdapter = ArrayAdapter<EntryFeed>(propContext, R.layout.list_item, parseApplication.applications)
-                propListView.adapter = arrayAdapter
+                val adapterFeed = AdapterFeed(propContext, R.layout.list_record, parseApplication.applications)
+                propListView.adapter = adapterFeed
             }
 
             override fun doInBackground(vararg url: String?): String {
